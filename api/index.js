@@ -19,6 +19,51 @@ mongoose
     console.log("Error connecting to MongoDB", err);
   });
 
-app.listen(port , () => {
-    console.log("Server is running on port 8000" );
-})
+app.listen(port, () => {
+  console.log("Server is running on port 8000");
+});
+const Employee = require("./models/employee");
+const Attendance = require("./models/attendance");
+app.post("/addEmployee", async () => {
+  try {
+    const {
+      employeeName,
+      employeeId,
+      designation,
+      phoneNumber,
+      dateOfBirth,
+      joiningDate,
+      activeEmployee,
+      salary,
+      address,
+    } = req.body;
+    // create a new employee
+    const newEmployee = new Employee({
+      employeeName,
+      employeeId,
+      designation,
+      phoneNumber,
+      dateOfBirth,
+      joiningDate,
+      activeEmployee,
+      salary,
+      address,
+    });
+
+    await newEmployee.save();
+    res.status(201).json({ message: "Employee saved successfully" });
+  } catch (error) {
+    console.log("Error creating employee", error);
+    res.status(500).json({ message: "Failed to add an employee" });
+  }
+});
+
+// endpoint to fetch all the employees
+app.get("/employees", async (req, res) => {
+  try {
+    const employees = await Employee.find();
+    res.status(200).json(employees);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch all employees" });
+  }
+});

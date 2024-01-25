@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-
+import HomeIndex from './app/(home)';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App. to start working on your app!</Text>
+      <HomeIndex />
       <StatusBar style="auto" />
     </View>
   );
@@ -16,5 +16,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 22, 
+    width: '100%',
   },
+  
 });
